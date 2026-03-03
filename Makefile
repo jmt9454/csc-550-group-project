@@ -33,6 +33,12 @@ db-down:
 	@echo Stopping PostgreSQL...
 	docker compose down
 
+db-reset:
+	@echo Resetting PostgreSQL database...
+	docker compose down -v
+	docker compose up -d
+	@echo PostgreSQL reset complete.
+
 # ==========================================
 # Development Server Commands
 # ==========================================
