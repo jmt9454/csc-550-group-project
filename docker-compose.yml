@@ -11,16 +11,5 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  atlas-db-scratchpad:
-    image: postgres:16-alpine
-    container_name: atlas_scratchpad_postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: atlas
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: local_dev_db_scratchpad
-    ports:
-      - "5433:5432"
 volumes:
   postgres_data:
