@@ -1,5 +1,7 @@
 # REPLACE THE VALUES HERE TO MATCH YOUR LOCAL DEV INSTANCE. 
 # DO NOT COMMIT THIS FILE TO GITHUB. INSTEAD, RENAME IT TO .env AND ADD .env TO YOUR .gitignore.
+DEBUG=True
+
 DB_ENGINE=django.db.backends.postgresql #Keep this as is for local development with PostgreSQL
 DB_NAME=local_dev_db
 DB_USER=user
