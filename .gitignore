@@ -1,3 +1,19 @@
-.env
+# Python / Django
 **/__pycache__/
 *.pyc
+venv/
+.venv/
+db.sqlite3
+*.log
+
+# Environment Secrets (Postgres credentials)
+.env
+
+# Node / Vue / Tailwind
+node_modules/
+dist/
+.eslintcache
+
+# OS specific
+.DS_Store
+Thumbs.db
