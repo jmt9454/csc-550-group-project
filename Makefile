@@ -62,7 +62,9 @@ dev-backend:
 
 dev:
 	@echo Starting both servers...
-	$(MAKE) -j 2 dev-backend dev-frontend
+	@pnpm dlx concurrently -c "blue,green" -n "backend,frontend" \
+		"$(MAKE) dev-backend" \
+		"$(MAKE) dev-frontend"
 
 # ==========================================
 # Cleanup
