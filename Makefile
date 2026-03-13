@@ -57,9 +57,12 @@ dev-frontend:
 	@echo Starting Vue.js...
 	cd $(FRONTEND_DIR) && pnpm run dev
 
+dev-backend:
+	cd backend && uv run python manage.py runserver
+
 dev:
 	@echo Starting both servers...
-	$(MAKE) -j 2 dev-backend
+	$(MAKE) -j 2 dev-backend dev-frontend
 
 # ==========================================
 # Cleanup
