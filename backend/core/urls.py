@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import hello_vue
+from api.views import health_check
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/hello/', hello_vue, name='hello_vue'),
+    path('api/health/', health_check, name='health_check'),
 ]

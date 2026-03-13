@@ -3,5 +3,5 @@ from rest_framework.response import Response
 
 # Create your views here.
 @api_view(['GET'])
-def hello_vue(request):
-    return Response({"message": "Hello, Vue!"})
+def health_check(request):
+    return Response({"message": "Health check passed!"})
