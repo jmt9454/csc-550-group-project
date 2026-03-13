@@ -50,48 +50,16 @@ db-reset:
 	docker compose up -d
 	@echo PostgreSQL reset complete.
 
-db-diff:
-ifndef name
-	$(error Error: Provide a name. Usage: make db-diff name=migration_name)
-endif
-	@echo Generating database migration...
-	cd $(DATABASE_DIR) && atlas migrate diff $(name) --env local
-	@echo Migration generated. Please review and apply it.
-
-db-diff-force:
-ifndef name
-	$(error Error: Provide a name. Usage: make db-diff-force name=migration_name)
-endif
-	@echo Forcing database migration generation...
-	cd $(DATABASE_DIR) && atlas migrate diff $(name) --env local --allow-destructive
-	@echo Migration generated with force. Please review and apply it.
-
-db-apply:
-	@echo Pushing migrations to localhost:5432...
-	cd $(DATABASE_DIR) && atlas migrate apply --env local
-
-db-status:
-	@echo Current migration state:
-	cd $(DATABASE_DIR) && atlas migrate status --env local
-
-db-hash:
-	@echo Recomputing Atlas integrity hash...
-	cd $(DATABASE_DIR) && atlas migrate hash --env local
-
 # ==========================================
 # Development Server Commands
 # ==========================================
-dev-backend:
-	@echo Starting FastAPI backend...
-	cd $(BACKEND_DIR) && uvicorn main:app --reload --host 127.0.0.1 --port 8000
-
 dev-frontend:
 	@echo Starting Vue.js...
 	cd $(FRONTEND_DIR) && pnpm run dev
 
 dev:
 	@echo Starting both servers...
-	$(MAKE) -j 2 dev-backend dev-frontend
+	$(MAKE) -j 2 dev-backend
 
 # ==========================================
 # Cleanup
