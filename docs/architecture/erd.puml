@@ -1,0 +1,101 @@
+@startuml
+
+' Layout Settings
+top to bottom direction
+skinparam linetype ortho
+skinparam nodesep 70
+skinparam ranksep 80
+skinparam packageStyle rectangle
+hide circle
+
+' ==========================
+' Entities
+' ==========================
+entity "User" as User {
+    * **user_id** : bigint <<generated>> <<PK>>
+    --
+    user_public_id : uuidv7 <<generated>> <<UNIQUE>>
+    email : varchar(255) <<UNIQUE>>
+    password_hash : varchar(255)
+    created_at : timestamp
+    user_type : UserType <<FK>>
+  }
+
+entity "UserType" as UserType {
+    * **user_type_id ** : int <<PK>>
+    --
+    user_type_role : varchar(50)
+    user_type_description : text
+  }
+  
+entity "Item" as Item {
+    * **item_id** : bigint <<PK>>
+    --
+    user_id : bigint <<FK>>
+    item_name : varchar(50)
+    item_description : text
+    item_category : int <<FK>>
+  }
+  
+entity "ItemCategory" as ItemCategory {
+    * **item_category_id** : int <<PK>>
+    --
+    item_category : varchar(50)
+    item_category_description : text
+  }
+  
+entity "ItemEvent" as ItemEvent {
+    * **item_id** : bigint <<PK>> <<FK>>
+    * **item_event_id** : int <<PK>>
+    --
+    item_event_datetime : datetime
+    item_status_change : int <<FK>>
+  }
+  
+entity "ItemStatus" as ItemStatus {
+    * **item_status_id** : int <<PK>>
+    --
+    item_status : varchar(50)
+    item_status_description : text
+    item_status_location : point
+  }
+  
+entity "FoundItem" as FoundItem {
+    * **item_id** : bigint <<PK>> <<FK>>
+    --
+    item_datetime_found : datetime
+    item_location_found : point
+  }
+
+entity "LostItem" as LostItem {
+    * **item_id** : bigint <<PK>> <<FK>>
+    --
+    item_datetime_lost : datetime
+    item_location_lost : point
+  }
+  
+entity "ItemMatch" as ItemMatch {
+    * **item_match_id** : bigint <<PK>>
+    --
+    lost_item_id : bigint <<FK>>
+    found_item_id : bigint <<FK>>
+    item_match_datetime : datetime
+  }
+
+' ==========================
+' Supertypes/Subtypes Relationships
+' ==========================
+Item ||--|| FoundItem
+Item ||--|| LostItem
+
+' ==========================
+' FK Relationships
+' ==========================
+User }o--|| UserType
+User ||--o{ Item
+Item }o--|| ItemCategory
+Item ||--|{ ItemEvent
+ItemEvent }o--|| ItemStatus
+FoundItem ||--o| ItemMatch
+LostItem ||--o| ItemMatch
+@enduml 
